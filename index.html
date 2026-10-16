@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AES-256-CBC Client Cipher | Клиентское шифрование данных</title>
+  <meta name="description" content="Безопасное клиентское шифрование и дешифрование по алгоритму AES-256-CBC. Обработка данных полностью в браузере.">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="app-title">AES-256-CBC Cipher</h1>
+    </header>
+
+    <!-- Main Workspace Card -->
+    <main class="flat-card workspace-grid">
+      <!-- Secret Key Section -->
+      <section class="key-section" aria-labelledby="key-label">
+        <div class="field-label-row">
+          <label id="key-label" for="passphrase-input" class="field-label">Секретный пароль / Ключ шифрования</label>
+          <button id="generate-key-btn" class="small-btn" type="button" title="Сгенерировать случайный надежный пароль">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            Генерировать
+          </button>
+        </div>
+        <div class="key-input-group">
+          <input
+            id="passphrase-input"
+            class="text-input"
+            type="password"
+            placeholder="Введите секретную фразу (например: strong-app-passphrase)"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <div class="key-input-actions">
+            <button id="toggle-key-visibility" class="icon-btn" type="button" title="Показать/скрыть пароль" aria-label="Показать пароль">
+              <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Input Panel -->
+      <section class="io-panel" aria-labelledby="input-title">
+        <div class="panel-header">
+          <span id="input-title" class="panel-title">Входной текст</span>
+          <div class="panel-actions">
+            <button id="sample-key-btn" class="small-btn" type="button" title="Вставить тестовый пример">
+              Пример
+            </button>
+            <button id="paste-input-btn" class="small-btn" type="button" title="Вставить из буфера">
+              Вставить
+            </button>
+            <button id="clear-input-btn" class="small-btn" type="button" title="Очистить поле">
+              Очистить
+            </button>
+          </div>
+        </div>
+        <textarea
+          id="main-input"
+          class="text-area"
+          placeholder="Введите исходный текст для шифрования или Base64-строку для расшифровки..."
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+      <!-- Action Buttons in Middle -->
+      <div class="main-action-wrapper">
+        <button id="encrypt-btn" class="primary-btn" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Зашифровать
+        </button>
+        <button id="decrypt-btn" class="secondary-btn" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+          </svg>
+          Расшифровать
+        </button>
+      </div>
+
+      <!-- Output Panel -->
+      <section class="io-panel" aria-labelledby="output-title">
+        <div class="panel-header">
+          <span id="output-title" class="panel-title">Результат (Ciphertext Base64)</span>
+          <div class="panel-actions">
+            <button id="swap-btn" class="small-btn" type="button" title="Переместить результат во входное поле">
+              Во входное поле
+            </button>
+            <button id="copy-output-btn" class="small-btn" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Копировать
+            </button>
+          </div>
+        </div>
+        <textarea
+          id="main-output"
+          class="text-area"
+          placeholder="Здесь появится результат обработки..."
+          readonly
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
